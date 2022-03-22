@@ -33,24 +33,22 @@ class ProductManagerTest {
 
     @Test
     public void shouldSearchByNameBook() {
-        Product book = new Book(1,"kniga",100,"popov",600,2022);
-        Product book1 = new Book(2,"kniga2",101,"popov2",601,2021);
+        Product book1 = new Book(1,"kniga",100,"popov",600,2022);
+        Product book2 = new Book(2,"kniga2",101,"popov2",601,2021);
 
 
         ProductRepository repository = new ProductRepository();
-        repository.save(book);
         repository.save(book1);
+        repository.save(book2);
 
 
         ProductManager manager = new ProductManager(repository);
-        manager.searchBy("popov2");
+        manager.searchBy("popov");
 
 
 
-
-
-        Product[] actual = manager.searchBy("popov2");
-        Product[] expected = new Product[]{book, book1};
+        Product[] actual = manager.searchBy("popov");
+        Product[] expected = new Product[]{book1, book2};
         assertArrayEquals(expected, actual);
 
 
