@@ -46,7 +46,7 @@ public class ProductManager {
             if(smartphone.getManufacturer().contains(search)){
                 return true;
             }
-            if(smartphone.getBrand().contains(search)){
+            if(smartphone.getName().contains(search)){
                 return true;
             }
         }
