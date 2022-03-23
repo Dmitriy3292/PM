@@ -6,11 +6,14 @@ import ru.netology.repo.ProductRepository;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ProductManagerTest {
+    Product smart = new Smartphone(1, "tel1", 999, "zvonilka", "china");
+    Product smart1 = new Smartphone(2, "tel2", 1999, "gudelka", "rus");
+    Product book1 = new Book (3,"kniga",100,"popov");
+    Product book2 = new Book (4,"kniga1",100,"popov1");
 
     @Test
     public void shouldSearchByName() {
-        Product smart = new Smartphone(1, "tel1", 999, "zvonilka", "china");
-        Product smart1 = new Smartphone(2, "tel2", 1999, "gudelka", "rus");
+
 
 
         ProductRepository repository = new ProductRepository();
@@ -18,14 +21,14 @@ class ProductManagerTest {
         repository.save(smart1);
 
         ProductManager manager = new ProductManager(repository);
-        manager.searchBy("smart");
 
 
 
 
 
-        Product[] actual = manager.searchBy("smart");
-        Product[] expected = new Product[]{smart, smart1};
+
+        Product[] actual = manager.searchBy("rus");
+        Product[] expected =  {smart1};
         assertArrayEquals(expected, actual);
 
 
@@ -33,8 +36,7 @@ class ProductManagerTest {
 
     @Test
     public void shouldSearchByNameBook() {
-        Product book1 = new Book(1,"kniga",100,"popov",600,2022);
-        Product book2 = new Book(2,"kniga2",101,"popov2",601,2021);
+
 
 
         ProductRepository repository = new ProductRepository();
@@ -43,12 +45,12 @@ class ProductManagerTest {
 
 
         ProductManager manager = new ProductManager(repository);
-        manager.searchBy("popov");
 
 
 
-        Product[] actual = manager.searchBy("popov");
-        Product[] expected = new Product[]{book1, book2};
+
+        Product[] actual = manager.searchBy("kniga");
+        Product[] expected = {book1};
         assertArrayEquals(expected, actual);
 
 

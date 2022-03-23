@@ -12,6 +12,9 @@ public class ProductManager {
     public void add(Product product){
         repository.save(product);
     }
+    public Product[] getAll() {
+        return repository.findAll();
+    }
 
     public Product[] searchBy(String text) {
         Product[] result = new Product[0];
@@ -28,17 +31,16 @@ public class ProductManager {
 
 
     public boolean matches(Product product, String search){
-        if(product.getName().contains(search)){
-            return true;
-        }
-        if(product instanceof Book){
+
+        if (product instanceof Book) {
             Book book = (Book) product;
-            if(book.getAuthor().contains(search)){
+            if (book.getName().contains(search)) {
                 return true;
             }
-            if(book.getTitle().contains(search)){
+            if (book.getAuthor().contains(search)) {
                 return true;
             }
+            return false;
         }else if(product instanceof Smartphone){
             Smartphone smartphone = (Smartphone) product;
             if(smartphone.getManufacturer().contains(search)){
