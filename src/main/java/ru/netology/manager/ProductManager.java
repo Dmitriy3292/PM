@@ -1,27 +1,31 @@
-package ru.netology.domaine;
+package ru.netology.manager;
 
+import ru.netology.domain.Book;
+import ru.netology.domain.Product;
+import ru.netology.domain.Smartphone;
 import ru.netology.repo.ProductRepository;
 
 public class ProductManager {
     private ProductRepository repository;
 
-    public ProductManager(ProductRepository repository){
+    public ProductManager(ProductRepository repository) {
         this.repository = repository;
     }
 
-    public void add(Product product){
+    public void add(Product product) {
         repository.save(product);
     }
+
     public Product[] getAll() {
         return repository.findAll();
     }
 
     public Product[] searchBy(String text) {
         Product[] result = new Product[0];
-        for (Product product: repository.findAll()) {
+        for (Product product : repository.findAll()) {
             if (matches(product, text)) {
                 Product[] tmp = new Product[result.length + 1];
-                System.arraycopy(result,0,tmp,0,result.length);
+                System.arraycopy(result, 0, tmp, 0, result.length);
                 tmp[tmp.length - 1] = product;
                 result = tmp;
             }
@@ -30,7 +34,7 @@ public class ProductManager {
     }
 
 
-    public boolean matches(Product product, String search){
+    public boolean matches(Product product, String search) {
 
         if (product instanceof Book) {
             Book book = (Book) product;
@@ -41,12 +45,12 @@ public class ProductManager {
                 return true;
             }
             return false;
-        }else if(product instanceof Smartphone){
+        } else if (product instanceof Smartphone) {
             Smartphone smartphone = (Smartphone) product;
-            if(smartphone.getManufacturer().contains(search)){
+            if (smartphone.getManufacturer().contains(search)) {
                 return true;
             }
-            if(smartphone.getName().contains(search)){
+            if (smartphone.getName().contains(search)) {
                 return true;
             }
         }
